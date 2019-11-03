@@ -28,11 +28,11 @@ class BruteForce:
         
         cracked_strings = [] # list of tuples( key, decrypted string )
         
-        for i in range(max_key):
-            key = chr(i)
+        for k in range(1, max_key, 1):
+            key = chr(k)
             temp_string = encrypted_string;
             for c in range(string_length):
-                temp_string = (temp_string[:i] + chr( ord( temp_string[i] ) ^ ord( key ) ) + temp_string[i+1:] )
+                temp_string = (temp_string[:c] + chr( ord( temp_string[c] ) ^ ord( key ) ) + temp_string[c+1:] )
                 cracked_strings.append( (key, temp_string) )
 
         return cracked_strings
