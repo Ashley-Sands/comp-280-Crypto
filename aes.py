@@ -20,18 +20,18 @@ class AES:
     def encrypt(self, string):
 
         print( "(s) len", len(string) )
-        string = self.pad_data( string , 16 )
-        print( "(e) len", len(string) )
+        byte_string = self.pad_data( string , 16 )
+        print( "(e) len", len(byte_string) )
 
         encryptor = self.cipher.encryptor()
-        encrypted = encryptor.update( bytes( string, 'utf-8' ) ) + encryptor.finalize()
+        encrypted = encryptor.update( byte_string ) + encryptor.finalize()
 
         return encrypted
 
-    def decrypt(self, bstr):
+    def decrypt(self, byte_str):
 
         decryptor = self.cipher.decryptor()
-        decrypted = decryptor.update(bstr) + decryptor.finalize()
+        decrypted = decryptor.update(byte_str) + decryptor.finalize()
 
         return decrypted
 
@@ -51,7 +51,6 @@ class AES:
         print( "e_key", self.encryption_key )
         print( "m_key: ", self.mode_key )
 
-
     def pad_data(self, string, mult_length):
 
         pad_len = 0
@@ -59,8 +58,10 @@ class AES:
         if len(string) % mult_length > 0:
             pad_len = mult_length - ( len(string) % mult_length )
 
-        padding = " " * pad_len
-        string += padding
 
-        return string
+        padding = bytes( pad_len )
+        byte_string = string.encode('utf-8') + padding
+        print("-------------------------------------------------------", byte_string.decode('utf-8'))
+
+        return byte_string
 
