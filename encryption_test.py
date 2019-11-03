@@ -18,7 +18,7 @@ class CaesarTest( BaseTestClass ):
 
     import ceasar
 
-    def test_string_is_not_equal_to_caesar_encrypted_string(self):
+    def test_string_is_not_equal_to_encrypted_string(self):
 
         # set up the cipher for testing
         cipher = self.ceasar.Caesar()
