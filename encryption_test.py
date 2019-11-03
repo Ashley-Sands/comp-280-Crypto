@@ -1,7 +1,19 @@
 import unittest
 import bruteForceMethods
+import time;
 
-class CaesarTest( unittest.TestCase ):
+
+class BaseTestClass( unittest.TestCase ):
+
+    def setUp(self):
+        self.started_time = time.time()
+
+    def tearDown(self):
+        self.elapsed_time = time.time() - self.started_time
+        print( self.id(), "(", round(self.elapsed_time, 3), "s )" )
+
+
+class CaesarTest( BaseTestClass ):
 
     import ceasar
 
