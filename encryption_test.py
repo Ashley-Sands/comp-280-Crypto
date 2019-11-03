@@ -1,6 +1,7 @@
 import unittest
 import bruteForceMethods
-import time;
+import time
+
 
 
 class BaseTestClass( unittest.TestCase ):
@@ -10,7 +11,7 @@ class BaseTestClass( unittest.TestCase ):
 
     def tearDown(self):
         self.elapsed_time = time.time() - self.started_time
-        print( self.id(), "(", round(self.elapsed_time, 3), "s )" )
+        print( '.'.join('{} ( {}s )'.format( self.id(), round( self.elapsed_time, 3 ) ).split('.')[1:]) )
 
 
 class CaesarTest( BaseTestClass ):
@@ -105,14 +106,68 @@ class CaesarTest( BaseTestClass ):
         self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
 
 
-class XorTest( unittest.TestCase ):
+class XorTest( BaseTestClass ):
 
     import xor
 
-    def test_string_is_not_equal_to_xor_encrypted_string(self):
-        pass
+    def test_string_is_not_equal_to_encrypted_string(self):
 
+        # setup cipher
+        cipher_key = "A"
+        cipher = self.xor.XorChipher( cipher_key )
 
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.chipher( string_to_encrypt )
+
+        self.assertNotEqual( string_to_encrypt, encrypted_string )
+
+    def test_decrypted_string_is_equals_to_string_to_encrypt(self):
+
+        # setup cipher
+        cipher_key = "A"
+        cipher = self.xor.XorChipher(cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.chipher(string_to_encrypt)
+        decrypted_string = cipher.chipher(encrypted_string)
+
+        self.assertEqual(string_to_encrypt, decrypted_string)
+
+    def test_decrypted_with_different_key_does_not_match_string_to_encrypt(self):
+
+        # setup encryption cipher
+        encrypt_cipher_key = "A"
+        encrypt_cipher = self.xor.XorChipher(encrypt_cipher_key)
+
+        # setup decryption cipher
+        decrypt_cipher_key = "B"
+        decrypt_cipher = self.xor.XorChipher(decrypt_cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encrypt_cipher.chipher(string_to_encrypt)
+        decrypted_string = decrypt_cipher.chipher(encrypted_string)
+
+        self.assertNotEqual(string_to_encrypt, decrypted_string)
+
+    def test_brute_force_decryption_method_finds_string_to_encryption(self):
+
+        # setup cipher
+        cipher_key = "A"
+        cipher = self.xor.XorChipher(cipher_key)
+
+        # setup brute force method
+        brute_force = bruteForceMethods.BruteForce();
+        brute_force_max_key = 1024
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.chipher(string_to_encrypt)
+
+        possible_strings = brute_force.xor( encrypted_string, brute_force_max_key )
+        self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
 
 class AesCryptographyTest( unittest.TestCase ):
 
@@ -125,6 +180,8 @@ class AesCryptographyTest( unittest.TestCase ):
 class Aes__Test( unittest.TestCase ):
     pass
 
-
 if __name__ == '__main__':
-    unittest.main();
+    unittest.main()
+
+
+
