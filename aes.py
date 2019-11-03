@@ -19,9 +19,7 @@ class AES:
 
     def encrypt(self, string):
 
-        print( "(s) len", len(string) )
         byte_string = self.pad_data( string , 16 )
-        print( "(e) len", len(byte_string) )
 
         encryptor = self.cipher.encryptor()
         encrypted = encryptor.update( byte_string ) + encryptor.finalize()
@@ -33,7 +31,16 @@ class AES:
         decryptor = self.cipher.decryptor()
         decrypted = decryptor.update(byte_str) + decryptor.finalize()
 
-        return decrypted
+        bytes_to_remove = 0;
+
+        # remove null bytes at end of string
+        for b in range(len(decrypted)-1, 0, -1):
+            if decrypted[b] == 0:
+                bytes_to_remove += 1
+            else:
+                break
+
+        return decrypted[:len(decrypted)-bytes_to_remove]
 
     def print_keys(self):
         m = 0
@@ -61,7 +68,6 @@ class AES:
 
         padding = bytes( pad_len )
         byte_string = string.encode('utf-8') + padding
-        print("-------------------------------------------------------", byte_string.decode('utf-8'))
 
         return byte_string
 
