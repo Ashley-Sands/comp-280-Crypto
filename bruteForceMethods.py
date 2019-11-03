@@ -19,3 +19,20 @@ class BruteForce:
             temp_str = ""
 
         return cracked_strings  # return all possible original strings
+
+    def xor(self, encrypted_string, max_key):
+        
+        string_length = len( encrypted_string )
+        temp_string = "";
+        key = ""
+        
+        cracked_strings = [] # list of tuples( key, decrypted string )
+        
+        for i in range(max_key):
+            key = chr(i)
+            temp_string = encrypted_string;
+            for c in range(string_length):
+                temp_string = (temp_string[:i] + chr( ord( temp_string[i] ) ^ ord( key ) ) + temp_string[i+1:] )
+                cracked_strings.append( (key, temp_string) )
+
+        return cracked_strings
