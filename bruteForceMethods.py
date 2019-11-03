@@ -15,7 +15,7 @@ class BruteForce:
                 if ascii_code > max_offset - 1:  # warp around to ~0 if we have gone over the max offset
                     ascii_code -= max_offset
                 temp_str += str(chr(ascii_code))
-            cracked_strings.append((k, temp_str))
+            cracked_strings.append((max_offset - k, temp_str))
             temp_str = ""
 
         return cracked_strings  # return all possible original strings
