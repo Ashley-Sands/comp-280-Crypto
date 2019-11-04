@@ -108,6 +108,8 @@ class XorTest( BaseTestClass ):
 
     import xor
 
+# =========== Simple Xor witch only supports a single character key.
+
     def test_string_to_encrypt_is_not_equal_to_encrypted_string(self):
 
         # setup cipher
@@ -167,6 +169,8 @@ class XorTest( BaseTestClass ):
         possible_strings = brute_force.xor( encrypted_string, brute_force_max_key )
         self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
 
+# =========== Xor support for keys with length grater than 1
+
     def test_string_to_encrypt_is_not_equal_to_encrypted_string_using_64_bit_key(self):
 
         # setup cipher
@@ -212,7 +216,9 @@ class XorTest( BaseTestClass ):
     def test_brute_force_decryption_method_finds_string_to_encryption_using_64_bit_key(self):
         pass
 
-    def test_string_to_encrypt_is_not_equal_to_complex_xor_encrypted_string_using_64_bit_key(self):
+# =========== Enhanced Xor
+
+    def test_string_to_encrypt_is_not_equal_to_enhanced_xor_encrypted_string_using_64_bit_key(self):
 
         # setup cipher
         cipher_key = "A9g@;dE9"
@@ -220,11 +226,11 @@ class XorTest( BaseTestClass ):
 
         # encrypt string
         string_to_encrypt = "Helloo World"
-        encrypted_string = cipher.complex_encrypt(string_to_encrypt )
+        encrypted_string = cipher.enhanced_encrypt(string_to_encrypt)
 
         self.assertNotEqual( string_to_encrypt, encrypted_string )
 
-    def test_complex_xor_decrypted_string_is_equals_to_string_to_encrypt_using_64_bit_key(self):
+    def test_enhanced_xor_decrypted_string_is_equals_to_string_to_encrypt_using_64_bit_key(self):
 
         # setup cipher
         cipher_key = "A9g@;dE9"
@@ -232,12 +238,12 @@ class XorTest( BaseTestClass ):
 
         # encrypt string
         string_to_encrypt = "Helloo World"
-        encrypted_string = cipher.complex_encrypt(string_to_encrypt)
-        decrypted_string = cipher.complex_encrypt(encrypted_string)
+        encrypted_string = cipher.enhanced_encrypt(string_to_encrypt)
+        decrypted_string = cipher.enhanced_encrypt(encrypted_string)
 
         self.assertEqual(string_to_encrypt, decrypted_string)
 
-    def test_complex_xor_decrypted_with_different_key_does_not_equals_to_string_to_encrypt_using_64_bit_key(self):
+    def test_enhanced_xor_decrypted_with_different_key_does_not_equals_to_string_to_encrypt_using_64_bit_key(self):
 
         # setup encryption cipher
         encryption_cipher_key = "A9g@;dE9"
@@ -249,12 +255,12 @@ class XorTest( BaseTestClass ):
 
         # encrypt string
         string_to_encrypt = "Helloo World"
-        encrypted_string = encryption_cipher.complex_encrypt(string_to_encrypt)
-        decrypted_string = decryption_cipher.complex_encrypt(encrypted_string)
+        encrypted_string = encryption_cipher.enhanced_encrypt(string_to_encrypt)
+        decrypted_string = decryption_cipher.enhanced_encrypt(encrypted_string)
 
         self.assertNotEqual(string_to_encrypt, decrypted_string)
 
-    def test_complex_xor_decrypted_with_key_in_different_order_does_not_match_string_to_encrypt_using_64_bit_key(self):
+    def test_enhanced_xor_decrypted_with_key_in_different_order_does_not_match_string_to_encrypt_using_64_bit_key(self):
 
         # set up encryption cipher
         encrypt_cipher_key = "A9g@;dE9"
@@ -266,8 +272,8 @@ class XorTest( BaseTestClass ):
 
         # encrypt cipher
         string_to_encrypt = "Helloo World"
-        encrypted_string = encrypt_cipher.complex_encrypt( string_to_encrypt )
-        decrypted_string = decrypt_cipher.complex_encrypt( encrypted_string )
+        encrypted_string = encrypt_cipher.enhanced_encrypt(string_to_encrypt)
+        decrypted_string = decrypt_cipher.enhanced_encrypt(encrypted_string)
 
         self.assertNotEqual( decrypted_string, string_to_encrypt )
 
