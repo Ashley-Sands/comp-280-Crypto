@@ -2,6 +2,15 @@
 class BruteForce:
 
     def caesar(self, encrypted_string, max_offset):
+        """ Brute force method to crack the super simple caesar encryption
+        This method is supper quick to crack to since the char offset only
+        goes up 255.
+        (Anything after that get raped back around to 0)
+
+        :param encrypted_string:        String to attempt to decrypt.
+        :param max_offset:              The max char offset
+        :return:                        All keys and strings
+        """
 
         temp_str = ""
         cracked_strings = []  # list of tuples (key, str)
@@ -21,7 +30,13 @@ class BruteForce:
         return cracked_strings  # return all possible original strings
 
     def xor(self, encrypted_string, max_key):
-        
+        """ Brute force method to crack simple Xor (key with len 1)
+        This method is supper quick to crack, since there can only be 255 keys.
+
+        :param encrypted_string:    String to attempt to decrypt.
+        :param max_key:             Max key (or char numb) (255, utf-8)
+        :return:                    All keys and strings
+        """
         string_length = len( encrypted_string )
         temp_string = "";
         key = ""
