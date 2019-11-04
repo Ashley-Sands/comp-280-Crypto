@@ -17,7 +17,7 @@ class CaesarTest( BaseTestClass ):
 
     import ceasar
 
-    def test_string_is_not_equal_to_encrypted_string(self):
+    def test_string_to_encrypt_is_not_equal_to_encrypted_string(self):
 
         # set up the cipher for testing
         cipher = self.ceasar.Caesar()
@@ -33,7 +33,6 @@ class CaesarTest( BaseTestClass ):
 
         # test they are not equals
         self.assertNotEqual(string_to_encrypt, encrypted_string)
-
 
     def test_decrypted_is_equal_to_string_to_encrypt(self):
 
@@ -109,7 +108,7 @@ class XorTest( BaseTestClass ):
 
     import xor
 
-    def test_string_is_not_equal_to_encrypted_string(self):
+    def test_string_to_encrypt_is_not_equal_to_encrypted_string(self):
 
         # setup cipher
         cipher_key = "A"
@@ -168,7 +167,7 @@ class XorTest( BaseTestClass ):
         possible_strings = brute_force.xor( encrypted_string, brute_force_max_key )
         self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
 
-    def test_string_is_not_equal_to_encrypted_string_using_64_bit_key(self):
+    def test_string_to_encrypt_is_not_equal_to_encrypted_string_using_64_bit_key(self):
 
         # setup cipher
         cipher_key = 'D8\r3#\t\n:'
@@ -205,10 +204,56 @@ class XorTest( BaseTestClass ):
 
         # encrypt string
         string_to_encrypt = "Helloo World"
-        encrypted_string = encrypt_cipher.chipher(string_to_encrypt)
-        decrypted_string = decrypt_cipher.chipher(encrypted_string)
+        encrypted_string = encrypt_cipher.encrypt(string_to_encrypt)
+        decrypted_string = decrypt_cipher.decrypt(encrypted_string)
 
         self.assertNotEqual(string_to_encrypt, decrypted_string)
+
+    def test_brute_force_decryption_method_finds_string_to_encryption_using_64_bit_key(self):
+        pass
+
+    def test_encrypt_twice_returns_decrypted_str_using_64_bit_key(self):
+
+        # I found this by accident.
+        # If we look at my implermentation of xor decrypt it goes through the
+        # key backwards. But i accidentally encrypted it twice which seamed to
+        # of decrypted it along with the decrypt method also working.
+
+        # setup cipher
+        cipher_key = 'D8\r3#\t\n:'
+        cipher = self.xor.XorChipher(cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.encrypt(string_to_encrypt)
+        decrypted_string = cipher.encrypt(encrypted_string)
+
+        self.assertEqual(string_to_encrypt, decrypted_string)
+
+    def test_decrypted_with_key_in_different_order_returns_correct_decrypted_str_using_64_bit_key(self):
+
+        # It got me thinking does it mater what order the key is in ?
+
+        # setup encryption cipher
+        encrypt_cipher_key = 'D8\r3#\t\n:'
+        encrypt_cipher = self.xor.XorChipher(encrypt_cipher_key)
+
+        # setup decryption cipher
+        decrypt_cipher_key = 'D\r83\t#\n:'
+        decrypt_cipher = self.xor.XorChipher(decrypt_cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encrypt_cipher.encrypt(string_to_encrypt)
+        decrypted_string = decrypt_cipher.encrypt(encrypted_string)
+
+        self.assertEqual(string_to_encrypt, decrypted_string)
+
+        # It turns out no. as long as all the characters are there
+        # no more, no less and in any order it will always decrypt
+        # I guess i need to do some reading on xor...
+        # :D
+
 
 class AesCryptographyTest( BaseTestClass ):
 
@@ -263,9 +308,9 @@ class AesCryptographyTest( BaseTestClass ):
         # ‭or 319,626,579,315,078,487,616,775,634,918,21‬ possibilities
         # (AKA a very, very, very, very big number)
         # ...
-        # If i done my math correctly, on my PC (using single thread)
+        # If i done my math correctly, on my PC (using a single thread)
         # it would take ~9.628519811583301e+21 Millenniums (+/- 10%)
-        # see implementation in main.py for me info on the math :)
+        # see implementation in main.py for more info on the math :)
         # ...
         # So if i implemented it here we would all be long gone before
         # the test finished.
