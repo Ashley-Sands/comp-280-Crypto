@@ -225,8 +225,54 @@ class XorTest( BaseTestClass ):
         self.assertNotEqual( string_to_encrypt, encrypted_string )
 
     def test_complex_xor_decrypted_string_is_equals_to_string_to_encrypt_using_64_bit_key(self):
-        pass;
 
+        # setup cipher
+        cipher_key = "A9g@;dE9"
+        cipher = self.xor.XorChipher(cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.complex_encrypt(string_to_encrypt)
+        decrypted_string = cipher.complex_encrypt(encrypted_string)
+
+        self.assertEqual(string_to_encrypt, decrypted_string)
+
+    def test_complex_xor_decrypted_with_different_key_does_not_equals_to_string_to_encrypt_using_64_bit_key(self):
+
+        # setup encryption cipher
+        encryption_cipher_key = "A9g@;dE9"
+        encryption_cipher = self.xor.XorChipher(encryption_cipher_key)
+
+        # setup decryption cipher
+        decryption_cipher_key = "H:Ai83@G"
+        decryption_cipher = self.xor.XorChipher(decryption_cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encryption_cipher.complex_encrypt(string_to_encrypt)
+        decrypted_string = decryption_cipher.complex_encrypt(encrypted_string)
+
+        self.assertNotEqual(string_to_encrypt, decrypted_string)
+
+    def test_complex_xor_decrypted_with_key_in_different_order_does_not_match_string_to_encrypt_using_64_bit_key(self):
+
+        # set up encryption cipher
+        encrypt_cipher_key = "A9g@;dE9"
+        encrypt_cipher = self.xor.XorChipher(encrypt_cipher_key)
+
+        # set up decryption cipher
+        decrypt_cipher_key = "9A@gd;E9"
+        decrypt_cipher = self.xor.XorChipher(decrypt_cipher_key)
+
+        # encrypt cipher
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encrypt_cipher.complex_encrypt( string_to_encrypt )
+        decrypted_string = decrypt_cipher.complex_encrypt( encrypted_string )
+
+        self.assertNotEqual( decrypted_string, string_to_encrypt )
+
+
+# =========== finding and curiosity
     def test_encrypt_twice_returns_decrypted_str_using_64_bit_key(self):
 
         # I found this by accident.
