@@ -1,29 +1,13 @@
 import time
+import random
+
 import ceasar
 import aes
-import random
 import xor
-
+from bruteForceMethods import BruteForce
 
 str_to_encrypt = "Helloo World"
 encrypted_str = ""
-
-def brute_force_caesar( string_to_crack, max_attamps ):
-
-    temp_str = ""
-    cracked_strs = []    # of tuples (key, str)
-
-    for k in range(max_attamps):    # keys / offsets
-        for s in string_to_crack:
-            ascii_code = ord(s) + k
-            if ascii_code > max_attamps - 1:
-                ascii_code -= max_attamps
-            temp_str += str(chr(ascii_code))
-        cracked_strs.append((k, temp_str))
-        temp_str = ""
-
-    return cracked_strs
-
 
 def brute_force_aes( key_len, chiper ):
 
@@ -161,7 +145,9 @@ print(decrypted_str)
 
 start_time = time.time()
 
-for bf in brute_force_caesar( encrypted_str, caesar_encription.max_offset ):
+brute_force = BruteForce()
+
+for bf in brute_force.caesar( encrypted_str, caesar_encription.max_offset ):
     print( bf )
     if bf[1] == decrypted_str:  ## point out that we have found it.
         print("---------------------------------------------------------------------------------------------------")
