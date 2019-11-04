@@ -46,6 +46,23 @@ class XorChipher:
 
         return str_to_decrypt
 
+    def complex_encrypt(self, str_to_encrypt):
+        """
+
+        :param str_to_encrypt: string to encrypt
+        :return: encrypted / decryped string
+        """
+
+        str_len = len(str_to_encrypt)
+
+        for i in range(str_len):
+            k = i % len(self.key)
+            str_to_encrypt = (str_to_encrypt[:i] +
+                              chr(ord(str_to_encrypt[i]) ^ ord(self.key[k])) +
+                              str_to_encrypt[i + 1:])
+
+        return str_to_encrypt
+
     def chipher(self, string):
         """ Simple Xor Cipher.
         This method will only use the a key of len 1

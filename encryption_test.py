@@ -212,6 +212,21 @@ class XorTest( BaseTestClass ):
     def test_brute_force_decryption_method_finds_string_to_encryption_using_64_bit_key(self):
         pass
 
+    def test_string_to_encrypt_is_not_equal_to_complex_xor_encrypted_string_using_64_bit_key(self):
+
+        # setup cipher
+        cipher_key = "A9g@;dE9"
+        cipher = self.xor.XorChipher( cipher_key )
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.complex_encrypt(string_to_encrypt )
+
+        self.assertNotEqual( string_to_encrypt, encrypted_string )
+
+    def test_complex_xor_decrypted_string_is_equals_to_string_to_encrypt_using_64_bit_key(self):
+        pass;
+
     def test_encrypt_twice_returns_decrypted_str_using_64_bit_key(self):
 
         # I found this by accident.
