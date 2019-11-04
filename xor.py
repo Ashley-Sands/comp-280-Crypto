@@ -84,7 +84,7 @@ class XorChipher:
         since its only a single character key
 
         Using a key with len 8 (64 bit):
-        Xor.encrypt function has                              2040 possible keys (255 * 8)
+        Xor.encrypt function has                              2040 possible keys (255 * 8) (this might not be right)
         since the key order is not enforced.
 
         Xor.enhanced_encrypt has                              255^8 possible keys
