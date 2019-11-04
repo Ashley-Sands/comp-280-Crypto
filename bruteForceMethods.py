@@ -64,7 +64,7 @@ class BruteForce:
         """
 
         str_length = 16;#key_len
-        max_chr = 255
+        max_chr = 254
         min_chr = 1
 
         e_str = [ chr(max_chr) ] * str_length
@@ -85,7 +85,7 @@ class BruteForce:
         warning = input("Would like a lil update ever 1,000,000 elements? (Y for yes)") == "Y"
 
         if contin != 'Y' :
-            return
+            return "Error: Brute force exited"
 
         c = 0       # counter
         cc = 1      # col counter
@@ -102,7 +102,10 @@ class BruteForce:
 
             a = ''.join(e_str)
             print( a.encode('utf-8') )
-            chiper.new_cipher( a.encode('utf-8') )
+            try:
+                chiper.new_cipher(a.encode('utf-8'))
+            except:
+                print("Key Error")
 
             if e_str == end_str:
                 break;
@@ -131,7 +134,7 @@ class BruteForce:
                 print( "the last 100,000 tock ", (time.time() - w_time), "seconds" )
                 contin = input("Are You Board Yet? (Y to exit, any think else to continue)")
                 if contin == "Y":
-                    return
+                    return "Error: Brute force exited"
                 cc += 1
                 w_time = time.time()
 
@@ -139,3 +142,5 @@ class BruteForce:
 
         print("All Done, total time:", t_time[0], t_time[1])
         print("count", c)
+
+        return "Seccess"
