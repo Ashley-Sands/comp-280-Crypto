@@ -3,9 +3,10 @@ import bruteForceMethods
 import time
 
 
+# Set up a timer for all test classes
 class BaseTestClass( unittest.TestCase ):
 
-    print_elapsed_time_threshold = -1   # < 0 always print else print if > value (sec)
+    print_elapsed_time_threshold = 0.0001   # < 0 always print else print if > value (sec)
 
     def setUp(self):
         self.started_time = time.time()
