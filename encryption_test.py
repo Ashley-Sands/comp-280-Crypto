@@ -282,7 +282,7 @@ class XorTest( BaseTestClass ):
         self.assertNotEqual( decrypted_string, string_to_encrypt )
 
 
-# =========== finding and curiosity
+# =========== findings and curiosity
     def test_encrypt_twice_returns_decrypted_str_using_64_bit_key(self):
 
         # I found this by accident.
