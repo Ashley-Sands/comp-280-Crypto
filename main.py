@@ -6,8 +6,107 @@ import Encryptions.aes as aes
 import Encryptions.xor as xor
 from bruteForceMethods import BruteForce
 
-str_to_encrypt = "Helloo World"
-encrypted_str = ""
+# set up ciphers for encryption and decryption
+# decrypts are only use when using a different key
+# Caesar
+encrypt_caesar = ceasar.Caesar()
+encrypt_caesar.set_max_offset(255)
+decrypt_caesar = ceasar.Caesar()
+decrypt_caesar.set_max_offset(255)
+# Xor
+encrypt_xor = xor.XorChipher("A")
+decrypt_xor = xor.XorChipher("B")
+# Aes
+encrypt_aes = aes.AES(16)
+decrypt_aes = aes.AES(16)
+
+brute_force = BruteForce();
+
+method_options = ['a', 'b', 'c']
+
+print("Hi, Welcome to AMS Encrypt...")
+print("Type quit, to exit the application")
+
+while True:
+
+    inp_method = ""
+    inp_message = ""
+    inp_decrypt = ""
+
+    encrypted_string = ""
+    decrypted_string = ""
+
+    while inp_method not in method_options:
+        print( "Enter an encryption method you would like to test")
+        print( "a) Aes", "b) Xor", "c) Caesar", sep="\n")
+        inp_method = str( input() )
+
+    while len(inp_message) == 0:
+        print( "Thank you!", "Please enter the message you would like to encrypt", sep="\n")
+        inp_message = str( input() )
+
+    if inp_message.lower() == "quit" or inp_method.lower() == "quit":
+        break
+
+    if inp_method.lower() == 'a':
+        encrypted_string = encrypt_aes.encrypt(inp_message)
+
+        while inp_decrypt not in method_options:
+            print("Your secrets message: ", encrypted_string)
+            print("How would you like to decrypt the message")
+            print("a) Decrypt using same cipher", "b) Decrypt using random key", sep="\n")
+            print("c) Brute force")
+
+            inp_decrypt = str( input() )
+
+        if inp_decrypt == 'a':
+            decrypted_string = encrypt_aes.decrypt(encrypted_string)
+        elif inp_decrypt == 'b':
+            decrypt_caesar.set_key(random.randint(0, 500))
+            decrypted_string = decrypt_aes.decrypt(encrypted_string)
+        elif inp_decrypt == 'c':
+            try:
+                decrypted_string = brute_force.AES(16, decrypt_aes)
+            except:
+                print("Error: Unknown")
+
+        print ("Your decrypted message: ", decrypted_string)
+
+    elif inp_method.lower() == 'b':
+        pass
+    elif inp_method.lower() == 'c':
+        print("Please enter a key offset (must be int)")
+        key_offset = 1
+
+        while key_offset < 2:
+            try:
+                key_offset = int( input() )
+            except ValueError:
+                key_offset = 1
+                print("Try Again")
+
+        encrypt_caesar.set_key(key_offset)
+        encrypted_string = encrypt_caesar.encrypt(inp_message)
+
+        while inp_decrypt not in method_options:
+            print("Your secrets message: ", encrypted_string)
+            print("How would you like to decrypt the message")
+            print("a) Decrypt using same cipher", "b) Decrypt using random key", sep="\n")
+            print("c) Brute force")
+
+            inp_decrypt = str( input() )
+
+        if inp_decrypt == 'a':
+            decrypted_string = encrypt_caesar.decrypt(encrypted_string)
+        elif inp_decrypt == 'b':
+            decrypt_caesar.set_key(random.randint(0, 500))
+            decrypted_string = decrypt_caesar.decrypt(encrypted_string)
+        elif inp_decrypt == 'c':
+            decrypted_string = brute_force.caesar(encrypted_string, 255)
+
+        print ("Your decrypted message: ", decrypted_string)
+
+
 
 ###################################################################
 # caesar
