@@ -5,7 +5,7 @@ import bruteForceMethods
 
 class XorTest( BaseTestClass ):
 
-    import xor
+    import Encryptions.xor as xor
 
 # =========== Simple Xor witch only supports a single character key.
 

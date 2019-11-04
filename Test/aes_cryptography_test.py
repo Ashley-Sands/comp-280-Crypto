@@ -5,7 +5,7 @@ import bruteForceMethods
 
 class AesCryptographyTest( BaseTestClass ):
 
-    import aes
+    import Encryptions.aes as aes
 
     def test_string_is_not_equal_to_encrypted_string(self):
 
@@ -63,6 +63,7 @@ class AesCryptographyTest( BaseTestClass ):
         # So if i implemented it here we would all be long gone before
         # the test finished.
         pass
+
 
 if __name__ == '__main__':
     unittest.main()

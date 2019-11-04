@@ -1,9 +1,9 @@
 import time
 import random
 
-import ceasar
-import aes
-import xor
+import Encryptions.ceasar as ceasar
+import Encryptions.aes as aes
+import Encryptions.xor as xor
 from bruteForceMethods import BruteForce
 
 str_to_encrypt = "Helloo World"

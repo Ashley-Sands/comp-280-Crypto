@@ -5,7 +5,7 @@ import bruteForceMethods
 
 class CaesarTest( BaseTestClass ):
 
-    import ceasar
+    import Encryptions.ceasar as ceasar
 
     def test_string_to_encrypt_is_not_equal_to_encrypted_string(self):
 
@@ -92,6 +92,7 @@ class CaesarTest( BaseTestClass ):
         possible_strings = brute_force.caesar(encrypted_string, brute_force_max_attempts)
 
         self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
+
 
 if __name__ == '__main__':
     unittest.main()
