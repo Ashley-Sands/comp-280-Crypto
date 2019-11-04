@@ -38,7 +38,7 @@ class XorChipher:
 
         str_len = len(str_to_decrypt)
 
-        for k in range(self.key_len, 0, -1):
+        for k in range(self.key_len-1, -1, -1):
             for i in range(str_len):
                 str_to_decrypt = (str_to_decrypt[:i] +
                                   chr(ord(str_to_decrypt[i]) ^ ord(self.key[k])) +
