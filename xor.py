@@ -26,6 +26,8 @@ class XorChipher:
                                   chr( ord( str_to_encrypt[i] ) ^ ord( self.key[k] ) ) +
                                   str_to_encrypt[i + 1:])
 
+        return str_to_encrypt
+
     def decrypt(self, str_to_decrypt):
         """More Complex Xor cipher decryption
         This method will work with key of any length.
@@ -41,6 +43,8 @@ class XorChipher:
                 str_to_decrypt = (str_to_decrypt[:i] +
                                   chr(ord(str_to_decrypt[i]) ^ ord(self.key[k])) +
                                   str_to_decrypt[i + 1:])
+
+        return str_to_decrypt
 
     def chipher(self, string):
         """ Simple Xor Cipher.
