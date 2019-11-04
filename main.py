@@ -179,18 +179,34 @@ input("Hit enter to continue onto Xor...")
 # Xor
 ###################################################################
 
-xor_encription = xor.XorChipher('A')
-string_to_encript = "Helloo World"
+xor_encryption = xor.XorChipher('A')
+string_to_encrypt = "Helloo World"
 
-encrypted_str = xor_encription.chipher(string_to_encript)
-decrypted_str = xor_encription.chipher(encrypted_str)
+encrypted_str = xor_encryption.chipher(string_to_encrypt)
+decrypted_str = xor_encryption.chipher(encrypted_str)
+
+xor_key = 'Adj\r\n8@4gD'
+xor_better_key_encryption = xor.XorChipher(xor_key)
+xor_better_key_decryption = xor.XorChipher('Fd83ks\n\t4')
+
+encrypted_better_key_str = xor_better_key_encryption.encrypt(string_to_encrypt)
+decrypted_better_key_str = xor_better_key_encryption.decrypt(encrypted_better_key_str)
+
+bad_decrypted_better_key_str = xor_better_key_decryption.decrypt(encrypted_better_key_str)
 
 print("------------------ XOR ------------------")
+print("-- Key Len 1")
 print("encrypted_str: ", encrypted_str)
 print("decrypted_str: ", decrypted_str)
+
+print("-- Key Len", len(xor_key))
+print("encrypted_str: ", encrypted_better_key_str)
+print("decrypted_str: ", decrypted_better_key_str)
+print("dead decrypted_str: ", bad_decrypted_better_key_str)
+
 print("New Key...")
-xor_encription.random_key()
-decrypted_str = xor_encription.chipher(encrypted_str)
+xor_encryption.random_key()
+decrypted_str = xor_encryption.chipher(encrypted_str)
 print("Dead str", decrypted_str)
 
 input("Hit enter to continue onto AES...")
@@ -206,7 +222,12 @@ aes_encription.print_keys()
 e_data = aes_encription.encrypt("Helloo World")
 d_data = aes_encription.decrypt( e_data )
 
+print("======================================", d_data, d_data.decode("utf-8"))
+
 print( e_data, "\n", d_data.decode("utf-8") )
 
 print("-----------------")
-#brute_force_aes(16, aes_encription)
+brute_force_aes(16, aes_encription)
+
+byte = bytearray()
+
