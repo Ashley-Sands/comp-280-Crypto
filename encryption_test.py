@@ -168,6 +168,48 @@ class XorTest( BaseTestClass ):
         possible_strings = brute_force.xor( encrypted_string, brute_force_max_key )
         self.assertTrue( (cipher_key, string_to_encrypt) in possible_strings )
 
+    def test_string_is_not_equal_to_encrypted_string_using_64_bit_key(self):
+
+        # setup cipher
+        cipher_key = 'D8\r3#\t\n:'
+        cipher = self.xor.XorChipher( cipher_key )
+
+        # encrypt key
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.encrypt( string_to_encrypt )
+
+        self.assertNotEqual( string_to_encrypt, encrypted_string )
+
+    def test_decrypted_string_is_equals_to_string_to_encrypt_using_64_bit_key(self):
+
+        # setup cipher
+        cipher_key = 'D8\r3#\t\n:'
+        cipher = self.xor.XorChipher(cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = cipher.encrypt(string_to_encrypt)
+        decrypted_string = cipher.decrypt(encrypted_string)
+
+        self.assertEqual(string_to_encrypt, decrypted_string)
+
+    def test_decrypted_with_different_key_does_not_match_string_to_encrypt_using_64_bit_key(self):
+
+        # setup encryption cipher
+        encrypt_cipher_key = 'D8\r3#\t\n:'
+        encrypt_cipher = self.xor.XorChipher(encrypt_cipher_key)
+
+        # setup decryption cipher
+        decrypt_cipher_key = 'B\rG@3]dP'
+        decrypt_cipher = self.xor.XorChipher(decrypt_cipher_key)
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encrypt_cipher.chipher(string_to_encrypt)
+        decrypted_string = decrypt_cipher.chipher(encrypted_string)
+
+        self.assertNotEqual(string_to_encrypt, decrypted_string)
+
 class AesCryptographyTest( BaseTestClass ):
 
     import aes
@@ -228,6 +270,7 @@ class AesCryptographyTest( BaseTestClass ):
         # So if i implemented it here we would all be long gone before
         # the test finished.
         pass
+
 
 class Aes__Test( unittest.TestCase ):
     pass
