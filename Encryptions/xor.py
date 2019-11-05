@@ -10,6 +10,10 @@ class XorChipher:
         self.key = [ chr(random.randint(0, 255)) for i in range(key_len) ]
         self.key_len = key_len
 
+    def set_key(self, key):
+        self.key = key
+        self.key_len = len(key)
+
     def chipher(self, string):
         """ Simple Xor Cipher.
         This method will only use the a key of len 1
