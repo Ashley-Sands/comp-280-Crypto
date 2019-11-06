@@ -6,9 +6,6 @@ import Encryptions.aes as aes
 import Encryptions.xor as xor
 from bruteForceMethods import BruteForce
 
-import flipFlop
-
-
 # set up ciphers for encryption and decryption
 # decrypts are only use when using a different key
 # Caesar
