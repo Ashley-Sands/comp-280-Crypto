@@ -112,9 +112,6 @@ class XorTest( BaseTestClass ):
 
         self.assertNotEqual(string_to_encrypt, decrypted_string)
 
-    def test_brute_force_decryption_method_finds_string_to_encryption_using_64_bit_key(self):
-        pass
-
 # =========== Enhanced Xor
 
     def test_string_to_encrypt_is_not_equal_to_enhanced_xor_encrypted_string_using_64_bit_key(self):
@@ -169,13 +166,35 @@ class XorTest( BaseTestClass ):
         decrypt_cipher_key = "9A@gd;E9"
         decrypt_cipher = self.xor.XorChipher(decrypt_cipher_key)
 
-        # encrypt cipher
+        # encrypt string
         string_to_encrypt = "Helloo World"
         encrypted_string = encrypt_cipher.enhanced_encrypt(string_to_encrypt)
         decrypted_string = decrypt_cipher.enhanced_encrypt(encrypted_string)
 
         self.assertNotEqual( decrypted_string, string_to_encrypt )
 
+    def test_enhanced_brute_force_decryption_method_finds_string_to_encryption_and_32_bit_key(self):
+
+        # set up encryption cipher
+        encrypt_cipher_key = 'D7'
+        encrypt_cipher = self.xor.XorChipher(encrypt_cipher_key)
+
+        # set up decryption cipher
+        # (we dont need a key it is done in the brute force method.)
+        decrypt_cipher = self.xor.XorChipher("")
+
+        # set up brute force
+        brute_force = bruteForceMethods.BruteForce()
+
+        # encrypt string
+        string_to_encrypt = "Helloo World"
+        encrypted_string = encrypt_cipher.enhanced_encrypt(string_to_encrypt);
+
+        # get all pos keys and string
+        possible_strings = brute_force.enhanced_xor(decrypt_cipher, encrypted_string, 2, True, True)
+        print(possible_strings)
+        # prove that the key and string only occors once
+        self.assertTrue( (encrypt_cipher_key, string_to_encrypt) in possible_strings)
 
 # =========== findings and curiosity
     def test_encrypt_twice_returns_decrypted_str_using_64_bit_key(self):

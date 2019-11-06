@@ -1,6 +1,6 @@
 import time
 from time_and_units import *
-
+import flipFlop
 
 class BruteForce:
 
@@ -54,6 +54,31 @@ class BruteForce:
                 cracked_strings.append( (key, temp_string) )
 
         return cracked_strings
+
+    def enhanced_xor(self, cipher, encrypted_string, max_key_length, all_keys_to_len, return_keys):
+
+        cracked_strings = [] # list of tuples [(key, decrypted message)]
+
+        # do all keys from len 1 to max key length
+        for i in range( max_key_length ):
+
+            if not all_keys_to_len:
+                i = max_key_length - 1
+
+            keys_iter = iter(flipFlop.FlipFlop(0, 255, i+1))
+
+            for key in keys_iter:
+                cipher.set_key(key)
+                decrypted_message = cipher.enhanced_encrypt( encrypted_string )
+
+                if return_keys:
+                    cracked_strings.append( (key, decrypted_message) )
+                else:
+                    cracked_strings.append( decrypted_message )
+
+
+        return cracked_strings
+
 
     def AES( self, key_len, chiper ):
         """

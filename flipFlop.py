@@ -34,8 +34,6 @@ class FlipFlop:
 
             self.out[self.current_col] = chr(ord(self.out[self.current_col]) + 1)
 
-        print(self.out)
-
         if self.bytes:
             return ''.join(self.out).encode("utf-8")
         else:
