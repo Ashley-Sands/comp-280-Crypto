@@ -192,7 +192,7 @@ class XorTest( BaseTestClass ):
 
         # get all pos keys and string
         possible_strings = brute_force.enhanced_xor(decrypt_cipher, encrypted_string, 2, True, True)
-        print(possible_strings)
+
         # prove that the key and string only occors once
         self.assertTrue( (encrypt_cipher_key, string_to_encrypt) in possible_strings)
 
