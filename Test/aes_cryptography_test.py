@@ -5,12 +5,12 @@ import bruteForceMethods
 
 class AesCryptographyTest( BaseTestClass ):
 
-    import Encryptions.aes as aes
+    import Encryptions.aes_cryptography as aes_cryptography
 
     def test_string_is_not_equal_to_encrypted_string(self):
 
         # setup cipher
-        cipher = self.aes.AES(16)
+        cipher = self.aes_cryptography.AES(16)
 
         # encrypt string
         string_to_encrypt = "Helloo World"
@@ -22,7 +22,7 @@ class AesCryptographyTest( BaseTestClass ):
     def test_decrypted_string_is_equals_to_string_to_encrypt(self):
 
         # setup cipher
-        cipher = self.aes.AES(16)
+        cipher = self.aes_cryptography.AES(16)
 
         # encrypt string
         string_to_encrypt = "Helloo World"
@@ -35,10 +35,10 @@ class AesCryptographyTest( BaseTestClass ):
     def test_decrypted_with_different_key_does_not_equal_string_to_encrypt(self):
 
         # set up encrypt cipher
-        encrypt_cipher = self.aes.AES(16)
+        encrypt_cipher = self.aes_cryptography.AES(16)
 
         # setup decrypt cipher
-        decrypt_cipher = self.aes.AES(16)
+        decrypt_cipher = self.aes_cryptography.AES(16)
 
         # encrypt string
         string_to_encrypt = "Helloo World"

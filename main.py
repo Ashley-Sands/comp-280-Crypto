@@ -2,7 +2,7 @@ import time
 import random
 
 import Encryptions.ceasar as ceasar
-import Encryptions.aes as aes
+import Encryptions.aes_cryptography as aes__cryptography
 import Encryptions.xor as xor
 from bruteForceMethods import BruteForce
 
@@ -17,8 +17,8 @@ decrypt_caesar.set_max_offset(255)
 encrypt_xor = xor.XorChipher("A")
 decrypt_xor = xor.XorChipher("B")
 # Aes
-encrypt_aes = aes.AES(16)
-decrypt_aes = aes.AES(16)
+encrypt_aes = aes__cryptography.AES(16)
+decrypt_aes = aes__cryptography.AES(16)
 
 brute_force = BruteForce();
 
@@ -184,7 +184,7 @@ input("Hit enter to continue onto AES...")
 
 print( "\n\n\nAES Keys: " );
 
-aes_encription = aes.AES(16)
+aes_encription = aes__cryptography.AES(16)
 aes_encription.print_keys()
 e_data = aes_encription.encrypt("Helloo World")
 d_data = aes_encription.decrypt( e_data )
