@@ -8,30 +8,6 @@ import Encryptions.xor as xor
 from bruteForceMethods import BruteForce
 import time_and_units as time_units;
 
-import base64
-
-e_cipher = aes_cryptodome.AES()
-d_cipher = aes_cryptodome.AES()
-
-str_to_encrypt = "Helloo World"
-
-encrypted_str = e_cipher.encrypt( str_to_encrypt )
-e_cipher.new_cipher()
-decrypted_str = e_cipher.decrypt( encrypted_str )
-
-decrypted_str_dif_cipher = d_cipher.decrypt( encrypted_str )
-
-print( "String to Encrypt: ", str_to_encrypt )
-
-print( "Encrypted string: ", encrypted_str )
-print( "Decrypted string: ", decrypted_str )
-
-print( "Dead string: ", decrypted_str_dif_cipher )
-
-
-
-
-
 # set up ciphers for encryption and decryption
 # decrypts are only use when using a different key
 # Caesar
@@ -172,6 +148,30 @@ while True:
         print ("Your decrypted message: ", decrypted_string)
 
 
+
+#############
+## AES CTR from Cryptodome lib
+##########
+
+print("AES CTR from Cryptodome lib demo")
+
+e_cipher = aes_cryptodome.AES()
+d_cipher = aes_cryptodome.AES()
+
+str_to_encrypt = "Helloo World"
+
+encrypted_str = e_cipher.encrypt( str_to_encrypt )
+e_cipher.new_cipher()
+decrypted_str = e_cipher.decrypt( encrypted_str )
+
+decrypted_str_dif_cipher = d_cipher.decrypt( encrypted_str )
+
+print( "String to Encrypt: ", str_to_encrypt )
+
+print( "Encrypted string: ", encrypted_str )
+print( "Decrypted string: ", decrypted_str )
+
+print( "Dead string: ", decrypted_str_dif_cipher )
 
 ###################################################################
 # caesar
