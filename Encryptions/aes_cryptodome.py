@@ -19,7 +19,7 @@ class AES:
         :return:                encrypted str
         """
 
-        encrypted_bytes = self.cipher.encrypt( str_to_encrypt )
+        encrypted_bytes = self.cipher.encrypt( str_to_encrypt.encode() )
         self.nonce = base64.b64encode( self.cipher.nonce ).decode("utf-8")
 
         return base64.b64encode( encrypted_bytes ).decode("utf-8")
