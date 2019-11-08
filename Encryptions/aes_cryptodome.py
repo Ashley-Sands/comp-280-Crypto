@@ -1,15 +1,16 @@
 import base64
-from Crypto.Cipher import AES
+from Crypto.Cipher import AES as crypto_aes
 from Crypto.Random import get_random_bytes
 
 class AES:
 
     def __init__(self):
         self.encryption_key = get_random_bytes(16)
-        self.cipher = AES.new(self.encryption_key, AES.MODE_CTR)
+        self.cipher = crypto_aes.new(self.encryption_key, crypto_aes.MODE_CTR)
+        self.nonce = ""
 
-    def new_cipher(self, key):
-        self.cipher = AES.new(key, AES.MODE_CTR)
+    def new_cipher(self):
+        self.cipher = crypto_aes.new(self.encryption_key, crypto_aes.MODE_CTR, nonce=base64.b64decode(self.nonce) )
 
     def encrypt(self, str_to_encrypt):
         """ Encrypt using AES CTR
@@ -19,8 +20,9 @@ class AES:
         """
 
         encrypted_bytes = self.cipher.encrypt( str_to_encrypt )
+        self.nonce = base64.b64encode( self.cipher.nonce ).decode("utf-8")
 
-        return base64.b64encode( encrypted_bytes )
+        return base64.b64encode( encrypted_bytes ).decode("utf-8")
 
     def decrypt(self, str_to_decrypt):
         """ Encrypt using AES CTR
@@ -31,4 +33,4 @@ class AES:
 
         decoded_str = base64.b64decode( str_to_decrypt )
 
-        return self.cipher.decrypt( decoded_str )
+        return "".join( map ( chr, self.cipher.decrypt( decoded_str ) ) )
