@@ -97,10 +97,10 @@ while True:
             inp_decrypt = str( input() ).lower()
 
         if inp_decrypt == 'a':
-            decrypted_str = encrypt_xor.enhanced_encrypt(encrypted_str)
+            decrypted_string = encrypt_xor.enhanced_encrypt(encrypted_str)
         elif inp_decrypt == 'b':
             decrypt_xor.random_key(len(key))
-            decrypted_str = decrypt_xor.enhanced_encrypt(encrypted_str)
+            decrypted_string = decrypt_xor.enhanced_encrypt(encrypted_str)
         elif inp_decrypt == 'c':
             if ( len(key) > 2 ):
                 print( "Your key is longer than 2, this could take " )
@@ -109,11 +109,11 @@ while True:
                 cont = input()
 
                 if cont == "Y":
-                    decrypted_str = brute_force.enhanced_xor(decrypt_xor, encrypted_str, len(key), False, True)
+                    decrypted_string = brute_force.enhanced_xor(decrypt_xor, encrypted_str, len(key), False, True)
                 else:
-                    decrypted_str = "Canceled"
+                    decrypted_string = "Canceled"
 
-        print ("Your decrypted message: ", decrypted_str)
+        print ("Your decrypted message: ", decrypted_string)
 
     elif inp_method.lower() == 'c':
         print("Please enter a key offset (must be int)")
