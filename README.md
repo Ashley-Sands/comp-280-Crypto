@@ -17,8 +17,8 @@ To run each cipher individual test run:
 
 ------
 
-The code for all encryptions can be located in 'Encryptions/' folder
-AES CTR (pycryptodome)  'aes_cryptodome.py'
-AES CBC (cryptography)  'aes_cryptography.py'
-Caesar                  'ceasar.py'
-Xor                     'Xor.py'
+The code for all encryptions can be located in 'Encryptions/' folder  
+AES CTR (pycryptodome)  'aes_cryptodome.py'  
+AES CBC (cryptography)  'aes_cryptography.py'  
+Caesar                  'ceasar.py'  
+Xor                     'xor.py'  
