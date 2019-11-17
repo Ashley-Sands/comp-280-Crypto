@@ -21,4 +21,4 @@ The code for all encryptions can be located in 'Encryptions/' folder
 'aes_cryptodome.py' for AES CTR (pycryptodome)    
 'aes_cryptography.py' for AES CBC (cryptography)       
 'ceasar.py' for Caesar                     
-'xor.py' Xor                       
+'xor.py' Xor                    
